@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Learn German</title>
+        <meta charset="utf-8">
+		<script
+		  src="https://code.jquery.com/jquery-3.1.1.js"
+		  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+		  crossorigin="anonymous"></script>
+    </head>
+<body>
+
+<div id="question"></div>
+<div id="answer"></div>
+
+<script>
+
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length; i; i--) {
+        j = Math.floor(Math.random() * i);
+        x = a[i - 1];
+        a[i - 1] = a[j];
+        a[j] = x;
+    }
+}
+
+var words = [
+    ["heißen", "s'appeler", ""],
+    ["whonen", "vivre / habiter", "to live"],
+    ["kommen", "venir", ""],
+    ["gehen", "aller", "to go"],
+    ["der Beruf,-e", "la profession", ""],
+    ["der Tag,-e", "le jour", ""],
+    ["der Morgen,-", "le matin", ""],
+    ["der Abend,-e", "la soirée", ""],
+    ["die Nacht / die Nächte", "la nuit", ""],
+]
+
+// for (var i = 0; i < words.length; i++) {
+//   words[i].push(0)
+// }
+shuffle(words)
+console.log(words)
+
+function getQ() {
+  var w = words.pop()
+  if (w == undefined) {
+    w = ["Das Ende,-n", "la fin", "the end"]
+  }
+  console.log(w)
+  if (w[1] == "") {
+    q = w[2]
+  } else {
+    q = w[1]
+  }
+  $(' #question ').html(q)
+  $(' #answer ').html(w[0])
+}
+
+
+function trigger() {
+	$(' #question ')
+    .click(function(){
+      $(' #question ').hide()
+      $(' #answer ').show()
+    })
+  $(' #answer ')
+    .click(function(){
+      getQ()
+      $(' #question ').show()
+      $(' #answer ').hide()
+      // trigger()
+    })
+}
+
+$(' #answer ').hide()
+getQ()
+trigger()
+
+</script>
